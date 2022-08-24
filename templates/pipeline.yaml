@@ -142,7 +142,12 @@ Resources:
                 Capabilities: CAPABILITY_IAM,CAPABILITY_NAMED_IAM,CAPABILITY_AUTO_EXPAND
                 TemplatePath: !Sub 'SourceOutput::${TemplateForDeployment}'
                 RoleArn: !GetAtt 'RoleCloudFormation.Arn'
-                ParameterOverrides:
+                ParameterOverrides: !Sub
+                  - |-
+                    {"ProjectName": "${ProjectName}",
+                     "Environment": "${Environment}",
+                     "BucketArtifactName": "${BucketArtifactName}"
+                    }
                   - ProjectName: !Ref ProjectName
                     Environment: !Ref Environment
                     BucketArtifactName: !Ref BucketArtifactName
