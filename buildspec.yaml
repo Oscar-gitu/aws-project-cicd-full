@@ -4,6 +4,7 @@ env:
   variables:
     CACHE_CONTROL: "100"
     S3_BUCKET: dev-artifacts-114838604208
+    FOLDER: deploys/project
 
 phases:
   build:
@@ -16,12 +17,15 @@ phases:
       - | 
         for t in $(ls "templates");
           do
-            aws cloudformation package --template-file ./templates/$t --s3-bucket ${S3_BUCKET} --output-template-file ./templates/$t --s3-prefix deploys/project
+            aws cloudformation package --template-file ./templates/$t --s3-bucket ${S3_BUCKET} --output-template-file ./templates/$t --s3-prefix ${FOLDER}
             if [ "${t}" != "MasterTemplate.json" ]
             then
-              aws s3 cp ./templates/$t s3://${S3_BUCKET}/deploys/project/$t
+              aws s3 cp ./templates/$t s3://${S3_BUCKET}/${FOLDER}/$t
             fi
           done
+      - cd templates
+        zip -r projectTemplate.zip ./MasterTemplate.json
+        aws s3 cp projectTemplate.zip s3://$BUCKET/${FOLDER}/MasterTemplate.zip
 
 artifacts:
    files:
