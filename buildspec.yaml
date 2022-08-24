@@ -11,6 +11,17 @@ phases:
       - echo Entered the build phase...
       - aws s3 cp ./templates/pipeline.yaml s3://${S3_BUCKET}/deploys/project/pipeline.yaml
 
+  copyfiles:
+    commands:
+      - for t in $(ls "templates")
+          do
+            aws cloudformation package --template-file ./templates/$t --s3-bucket ${S3_BUCKET} --output-template-file ./templates/$t --s3-prefix deploys/project
+            if [ "${t}" != "MasterTemplate.json" ]
+            then
+              aws s3 cp ./templates/$t s3://${S3_BUCKET}/deploys/project/$t
+            fi
+          done
+
 artifacts:
    files:
      - '**/*'
