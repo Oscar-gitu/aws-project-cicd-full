@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: '2010-09-09'
-Description: Proyect Full CICD Pipeline
+Description: Builder Project
 Parameters:
   Environment:
     Type: String

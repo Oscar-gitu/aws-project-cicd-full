@@ -10,7 +10,7 @@ phases:
   build:
     commands:
       - echo Entered the build phase...
-      - aws s3 cp ./templates/pipeline.yaml s3://${S3_BUCKET}/deploys/project/pipeline.yaml
+      - aws cloudformation deploy --template-file ./templates/pipeline.yaml --stack-name dev-deploy-pipeline --parameter-overrides BucketArtifactName=dev-artifacts-114838604208 --capabilities CAPABILITY_AUTO_EXPAND CAPABILITY_NAMED_IAM CAPABILITY_IAM
 
   post_build:
     commands:
