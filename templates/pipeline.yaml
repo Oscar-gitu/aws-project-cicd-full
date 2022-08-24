@@ -13,7 +13,7 @@ Parameters:
     Default: MasterTemplate.json
   ArtifactsZipName:
     Type: String
-    Default: deploys/projectfinal/MasterTemplate.zip
+    Default: deploys/project/MasterTemplate.zip
   BucketArtifactName:
     Type: String
     Default: project-artifacts-aws
