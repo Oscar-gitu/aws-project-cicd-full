@@ -1,6 +1,9 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Description: Proyect Full CICD Pipeline
 Parameters:
+  Environment:
+    Type: String
+    Default: dev
   GitHubOwner:
     Type: String
     AllowedPattern: '[A-Za-z0-9-]+'
@@ -16,6 +19,8 @@ Parameters:
   CodeBuildEnvironmentImage:
     Type: String
     Default: 'aws/codebuild/standard:4.0'
+  SecretStringGithub:
+    Type: String
 Resources:
   CodeBuildServiceRole:
     Type: 'AWS::IAM::Role'
@@ -65,13 +70,33 @@ Resources:
                   - cloudformation:*
                   - secretsmanager:*
                 Resource: '*'
+  SecretKeyGitHubAccess:
+    Type: "AWS::SecretsManager::Secret"
+    Properties:
+      Name: !Sub "${Environment}-${GitHubRepository}-key"
+      Description: Key Access Git Hub
+      SecretString: !Ref SecretStringGithub
+  BucketArtifacts:
+    Type: "AWS::S3::Bucket"
+    Properties:
+      BucketName: !Sub "${Environment}-artifacts-${AWS::AccountId}"
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      VersioningConfiguration:
+        Status: Enabled
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
   CodeBuildSourceCredential:
     Type: 'AWS::CodeBuild::SourceCredential'
     Properties:
       AuthType: PERSONAL_ACCESS_TOKEN
       ServerType: GITHUB
-      Token: >-
-        {{resolve:secretsmanager:GITGUB_ACCESS:SecretString:GITGUB_ACCESS_TOKEN}}
+      Token: !Ref SecretStringGithub
   CodeBuilProject:
     Type: 'AWS::CodeBuild::Project'
     Properties:
@@ -93,7 +118,7 @@ Resources:
         FilterGroups:
           - - Type: EVENT
               Pattern: >-
-                PUSH
+                PULL_REQUEST_MERGED
             - Type: BASE_REF
               Pattern: !Sub '^refs/heads/${GitHubBranch}$'
       Environment:
