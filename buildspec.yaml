@@ -25,7 +25,7 @@ phases:
           done
       - cd templates
       - zip -r projectTemplate.zip ./MasterTemplate.json
-      - aws s3 cp projectTemplate.zip s3://$BUCKET/${FOLDER}/MasterTemplate.zip
+      - aws s3 cp projectTemplate.zip s3://${BUCKET}/${FOLDER}/MasterTemplate.zip
 
 artifacts:
    files:
