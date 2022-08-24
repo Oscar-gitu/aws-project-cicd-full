@@ -7,7 +7,7 @@ Parameters:
   ProjectName:
     Type: String
     Description: The project Name.
-    Default: projectfinal
+    Default: project
   TemplateForDeployment:
     Type: String
     Default: MasterTemplate.json
@@ -106,7 +106,7 @@ Resources:
   Pipeline:
     Type: AWS::CodePipeline::Pipeline
     Properties:
-      Name: !Sub '${ProjectName}-pipeline-version1'
+      Name: !Sub '${ProjectName}-pipeline'
       RoleArn: !GetAtt 'RoleCodePipeline.Arn'
       ArtifactStore:
         Type: S3
@@ -137,8 +137,8 @@ Resources:
                 Provider: CloudFormation
               Configuration:
                 ActionMode: CHANGE_SET_REPLACE
-                ChangeSetName: !Sub '${Environment}-${ProjectName}-changeSet'
-                StackName: !Sub '${Environment}-${ProjectName}-stack'
+                ChangeSetName: !Sub '${Environment}-${ProjectName}-mastertemplate-changeSet'
+                StackName: !Sub '${Environment}-${ProjectName}-mastertemplate-stack'
                 Capabilities: CAPABILITY_IAM,CAPABILITY_NAMED_IAM,CAPABILITY_AUTO_EXPAND
                 TemplatePath: !Sub 'SourceOutput::${TemplateForDeployment}'
                 RoleArn: !GetAtt 'RoleCloudFormation.Arn'
@@ -153,8 +153,8 @@ Resources:
                 Provider: CloudFormation
               Configuration:
                 ActionMode: CHANGE_SET_EXECUTE
-                ChangeSetName: !Sub '${Environment}-${ProjectName}-changeSet'
-                StackName: !Sub '${Environment}-${ProjectName}-stack'
+                ChangeSetName: !Sub '${Environment}-${ProjectName}-mastertemplate-changeSet'
+                StackName: !Sub '${Environment}-${ProjectName}-mastertemplate-stack'
               RunOrder: 2
               InputArtifacts:
                 - Name: SourceOutput
