@@ -1,11 +1,16 @@
 version: 0.2
 
+env:
+  variables:
+    CACHE_CONTROL: "100"
+    S3_BUCKET: animation-project
+    BUILD_ENV: dev-artifacts-114838604208
+
 phases:
   build:
     commands:
       - echo Entered the build phase...
-      - echo Build started on `date`
-      - echo Test started build
+      - aws s3 cp ./templates/pipeline.yaml s3://${S3_BUCKET}/deploys/project/pipeline.yaml
 
 artifacts:
    files:
