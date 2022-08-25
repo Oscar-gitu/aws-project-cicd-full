@@ -300,6 +300,28 @@
         "Timeout": 30
       }
     },
+    "LmdGetDev": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": "../src/lambdas/get_dev",
+        "Handler": "lambda_function.lambda_handler",
+        "Role": {
+          "Fn::GetAtt": [
+            "Role",
+            "Arn"
+          ]
+        },
+        "Runtime": "python3.9",
+        "TracingConfig": {
+          "Mode": "Active"
+        },
+        "FunctionName": {
+          "Fn::Sub": "${Environment}-${ProjectName}-get_dev"
+        },
+        "MemorySize": 128,
+        "Timeout": 30
+      }
+    },
     "ROLApi": {
       "Type": "AWS::IAM::Role",
       "Properties": {
@@ -484,6 +506,67 @@
           ]
         }
       }
+    },
+    "APIResourceLmdGetDev": {
+      "Type": "AWS::ApiGateway::Resource",
+      "Properties": {
+        "RestApiId": {
+          "Ref": "APIG"
+        },
+        "ParentId": {
+          "Fn::GetAtt": [
+            "APIG",
+            "RootResourceId"
+          ]
+        },
+        "PathPart": "getdev"
+      },
+      "DependsOn": [
+        "APIG"
+      ]
+    },
+    "APIMethodLmdGetDev": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "RestApiId": {
+          "Ref": "APIG"
+        },
+        "ResourceId": {
+          "Ref": "APIResourceLmdGetDev"
+        },
+        "HttpMethod": "GET",
+        "AuthorizationType": "NONE",
+        "MethodResponses": [
+          {
+            "StatusCode": 200
+          }
+        ],
+        "Integration": {
+          "Type": "AWS",
+          "IntegrationResponses": [
+            {
+              "StatusCode": 200
+            }
+          ],
+          "IntegrationHttpMethod": "GET",
+          "Uri": {
+            "Fn::Sub": [
+              "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${LambdaFuncNameArn}/invocations",
+              {
+                "LambdaFuncNameArn": {
+                  "Fn::GetAtt": [
+                    "LmdGetDev",
+                    "Arn"
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      },
+      "DependsOn": [
+        "APIResourceLmdGetDev"
+      ]
     }
   }
 }
