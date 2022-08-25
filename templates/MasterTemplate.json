@@ -399,6 +399,67 @@
         }
       }
     },
+    "APIResourceLmdGetDev": {
+      "Type": "AWS::ApiGateway::Resource",
+      "Properties": {
+        "RestApiId": {
+          "Ref": "APIG"
+        },
+        "ParentId": {
+          "Fn::GetAtt": [
+            "APIG",
+            "RootResourceId"
+          ]
+        },
+        "PathPart": "getdev"
+      },
+      "DependsOn": [
+        "APIG"
+      ]
+    },
+    "APIMethodLmdGetDev": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "RestApiId": {
+          "Ref": "APIG"
+        },
+        "ResourceId": {
+          "Ref": "APIResourceLmdGetDev"
+        },
+        "HttpMethod": "GET",
+        "AuthorizationType": "NONE",
+        "MethodResponses": [
+          {
+            "StatusCode": 200
+          }
+        ],
+        "Integration": {
+          "Type": "AWS",
+          "IntegrationResponses": [
+            {
+              "StatusCode": 200
+            }
+          ],
+          "IntegrationHttpMethod": "GET",
+          "Uri": {
+            "Fn::Sub": [
+              "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${LambdaFuncNameArn}/invocations",
+              {
+                "LambdaFuncNameArn": {
+                  "Fn::GetAtt": [
+                    "LmdGetDev",
+                    "Arn"
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      },
+      "DependsOn": [
+        "APIResourceLmdGetDev"
+      ]
+    },
     "DAPIGprojectback": {
       "DependsOn": "APIG",
       "Type": "AWS::ApiGateway::Deployment",
@@ -506,67 +567,6 @@
           ]
         }
       }
-    },
-    "APIResourceLmdGetDev": {
-      "Type": "AWS::ApiGateway::Resource",
-      "Properties": {
-        "RestApiId": {
-          "Ref": "APIG"
-        },
-        "ParentId": {
-          "Fn::GetAtt": [
-            "APIG",
-            "RootResourceId"
-          ]
-        },
-        "PathPart": "getdev"
-      },
-      "DependsOn": [
-        "APIG"
-      ]
-    },
-    "APIMethodLmdGetDev": {
-      "Type": "AWS::ApiGateway::Method",
-      "Properties": {
-        "RestApiId": {
-          "Ref": "APIG"
-        },
-        "ResourceId": {
-          "Ref": "APIResourceLmdGetDev"
-        },
-        "HttpMethod": "GET",
-        "AuthorizationType": "NONE",
-        "MethodResponses": [
-          {
-            "StatusCode": 200
-          }
-        ],
-        "Integration": {
-          "Type": "AWS",
-          "IntegrationResponses": [
-            {
-              "StatusCode": 200
-            }
-          ],
-          "IntegrationHttpMethod": "GET",
-          "Uri": {
-            "Fn::Sub": [
-              "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${LambdaFuncNameArn}/invocations",
-              {
-                "LambdaFuncNameArn": {
-                  "Fn::GetAtt": [
-                    "LmdGetDev",
-                    "Arn"
-                  ]
-                }
-              }
-            ]
-          }
-        }
-      },
-      "DependsOn": [
-        "APIResourceLmdGetDev"
-      ]
     }
   }
 }
