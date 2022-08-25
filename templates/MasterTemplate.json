@@ -299,6 +299,191 @@
         "MemorySize": 128,
         "Timeout": 30
       }
+    },
+    "ROLApi": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "apigateway.amazonaws.com"
+              },
+              "Action": "sts:AssumeRole"
+            }
+          ]
+        },
+        "Path": "/",
+        "Policies": [
+          {
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": "lambda:InvokeFunction",
+                  "Resource": "*"
+                }
+              ]
+            },
+            "PolicyName": {
+              "Fn::Sub": "${Environment}-${ProjectName}-ApiInvokeLambdaPermission"
+            }
+          },
+          {
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "logs:CreateLogGroup",
+                    "logs:CreateLogStream",
+                    "logs:DescribeLogGroups",
+                    "logs:DescribeLogStreams",
+                    "logs:PutLogEvents",
+                    "logs:GetLogEvents",
+                    "logs:FilterLogEvents"
+                  ],
+                  "Resource": "*"
+                }
+              ]
+            },
+            "PolicyName": {
+              "Fn::Sub": "${Environment}-${ProjectName}-ApiLogPermission"
+            }
+          }
+        ]
+      }
+    },
+    "APIG": {
+      "Type": "AWS::ApiGateway::RestApi",
+      "Properties": {
+        "Body": {
+          "Fn::Transform": {
+            "Name": "AWS::Include",
+            "Parameters": {
+              "Location": "../src/api.json"
+            }
+          }
+        },
+        "Name": {
+          "Fn::Sub": "${Environment}-${ProjectName}"
+        },
+        "Parameters": {
+          "endpointConfigurationTypes": "REGIONAL"
+        }
+      }
+    },
+    "DAPIGprojectback": {
+      "DependsOn": "APIG",
+      "Type": "AWS::ApiGateway::Deployment",
+      "Properties": {
+        "RestApiId": {
+          "Ref": "APIG"
+        }
+      },
+      "DeletionPolicy": "Retain"
+    },
+    "LGAPI": {
+      "Type": "AWS::Logs::LogGroup",
+      "Properties": {
+        "RetentionInDays": 365
+      },
+      "DeletionPolicy": "Retain"
+    },
+    "SAPIGprojectback": {
+      "Type": "AWS::ApiGateway::Stage",
+      "Properties": {
+        "RestApiId": {
+          "Ref": "APIG"
+        },
+        "DeploymentId": {
+          "Ref": "DAPIGprojectback"
+        },
+        "StageName": {
+          "Ref": "Environment"
+        },
+        "TracingEnabled": true,
+        "AccessLogSetting": {
+          "DestinationArn": {
+            "Fn::GetAtt": [
+              "LGAPI",
+              "Arn"
+            ]
+          },
+          "Format": "{ 'requestId':'$context.requestId', 'ip': '$context.identity.sourceIp', 'caller':'$context.identity.caller', 'user':'$context.identity.user', 'requestTime':'$context.requestTime', 'httpMethod':'$context.httpMethod', 'resourcePath':'$context.resourcePath', 'status':'$context.status', 'protocol':'$context.protocol', 'responseLength':'$context.responseLength'}"
+        }
+      }
+    },
+    "UP": {
+      "Type": "AWS::ApiGateway::UsagePlan",
+      "Properties": {
+        "ApiStages": [
+          {
+            "ApiId": {
+              "Ref": "APIG"
+            },
+            "Stage": {
+              "Ref": "SAPIGprojectback"
+            }
+          }
+        ],
+        "Description": "Custom project usage plan",
+        "UsagePlanName": {
+          "Fn::Sub": "${Environment}-${ProjectName}-Plan"
+        }
+      }
+    },
+    "KAPIGprojectback": {
+      "Type": "AWS::ApiGateway::ApiKey",
+      "DependsOn": [
+        "DAPIGprojectback",
+        "APIG"
+      ],
+      "Properties": {
+        "Name": {
+          "Fn::Sub": "${Environment}-${ProjectName}-ApiKey"
+        },
+        "Description": "CloudFormation API Key V1",
+        "Enabled": true,
+        "StageKeys": [
+          {
+            "RestApiId": {
+              "Ref": "APIG"
+            },
+            "StageName": {
+              "Ref": "SAPIGprojectback"
+            }
+          }
+        ]
+      }
+    },
+    "UPK": {
+      "Type": "AWS::ApiGateway::UsagePlanKey",
+      "Properties": {
+        "KeyId": {
+          "Ref": "KAPIGprojectback"
+        },
+        "KeyType": "API_KEY",
+        "UsagePlanId": {
+          "Ref": "UP"
+        }
+      }
+    },
+    "APIAccount": {
+      "DependsOn": "ROLApi",
+      "Type": "AWS::ApiGateway::Account",
+      "Properties": {
+        "CloudWatchRoleArn": {
+          "Fn::GetAtt": [
+            "ROLApi",
+            "Arn"
+          ]
+        }
+      }
     }
   }
 }
