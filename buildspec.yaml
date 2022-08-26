@@ -7,6 +7,11 @@ env:
     FOLDER: deploys/project
 
 phases:
+
+  install:
+    runtime-versions:
+      python: 3.9
+
   build:
     commands:
       - echo Entered the build phase...
@@ -14,6 +19,14 @@ phases:
 
   post_build:
     commands:
+      - python -m pip install --upgrade pip
+      - cd src/layers/python
+      - pip install --target . -r requirements.txt
+      - cd..
+      - zip -r dependencies.zip ./python
+      - aws s3 cp dependencies.zip s3://${S3_BUCKET}/${FOLDER}/dependencies.zip
+      - cd..
+      - cd..
       - | 
         for t in $(ls "templates");
           do
@@ -24,8 +37,8 @@ phases:
             fi
           done
       - cd templates
-      - zip -r projectTemplate.zip ./MasterTemplate.json
-      - aws s3 cp projectTemplate.zip s3://${S3_BUCKET}/${FOLDER}/MasterTemplate.zip
+      - zip -r MasterTemplate.zip ./MasterTemplate.json
+      - aws s3 cp MasterTemplate.zip s3://${S3_BUCKET}/${FOLDER}/MasterTemplate.zip
 
 artifacts:
    files:
