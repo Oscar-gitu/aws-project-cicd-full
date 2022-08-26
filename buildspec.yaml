@@ -19,6 +19,7 @@ phases:
 
   post_build:
     commands:
+      - python -m pip install --upgrade pip
       - cd src/layers/python
       - pip install --target . -r requirements.txt
       - cd..
