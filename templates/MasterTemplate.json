@@ -460,7 +460,7 @@
         "APIResourceLmdGetDev"
       ]
     },
-    "DAPIGprojectback#TIMESTAMP#": {
+    "DAPIGprojectback": {
       "DependsOn": "APIG",
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
@@ -484,7 +484,7 @@
           "Ref": "APIG"
         },
         "DeploymentId": {
-          "Ref": "DAPIGprojectback#TIMESTAMP#"
+          "Ref": "DAPIGprojectback"
         },
         "StageName": {
           "Ref": "Environment"
@@ -523,7 +523,7 @@
     "KAPIGprojectback": {
       "Type": "AWS::ApiGateway::ApiKey",
       "DependsOn": [
-        "DAPIGprojectback#TIMESTAMP#",
+        "DAPIGprojectback",
         "APIG"
       ],
       "Properties": {
