@@ -278,6 +278,23 @@
         ]
       }
     },
+    "LYSCore": {
+      "Type": "AWS::Lambda::LayerVersion",
+      "Properties": {
+        "CompatibleRuntimes": [
+          "python3.9"
+        ],
+        "Content": {
+          "S3Bucket": {
+            "Ref": "BucketArtifactName"
+          },
+          "S3Key": "deploys/project/dependencies.zip"
+        },
+        "LayerName": {
+          "Fn::Sub": "${Environment}-${ProjectName}-layer"
+        }
+      }
+    },
     "LmdGetTest": {
       "Type": "AWS::Lambda::Function",
       "Properties": {
@@ -319,7 +336,12 @@
           "Fn::Sub": "${Environment}-${ProjectName}-get_dev"
         },
         "MemorySize": 128,
-        "Timeout": 30
+        "Timeout": 30,
+        "Layers": [
+          {
+            "Ref": "LYSCore"
+          }
+        ]
       }
     },
     "ROLApi": {
