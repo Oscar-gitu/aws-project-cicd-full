@@ -25,8 +25,8 @@ phases:
       - cd ..
       - zip -r dependencies.zip ./python
       - aws s3 cp dependencies.zip s3://${S3_BUCKET}/${FOLDER}/dependencies.zip
-      - cd..
-      - cd..
+      - cd ..
+      - cd ..
       - | 
         for t in $(ls "templates");
           do
