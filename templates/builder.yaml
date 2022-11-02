@@ -73,11 +73,13 @@ Resources:
                   - codepipeline:*
                 Resource: '*'
   SecretKeyGitHubAccess:
-    Type: "AWS::SecretsManager::Secret"
+    Type: "AWS::SSM::Parameter"
     Properties:
       Name: !Sub "${Environment}-${GitHubRepository}-key"
       Description: Key Access Git Hub
-      SecretString: !Ref SecretStringGithub
+      Tier: Standard
+      Type: String
+      Value: !Ref SecretStringGithub
   BucketArtifacts:
     Type: "AWS::S3::Bucket"
     Properties:
