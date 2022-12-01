@@ -25,6 +25,7 @@ phases:
       - pip install --target . -r requirements.txt
       - cd ..
       - cd ..
+      - cd ..
       - | 
         for t in $(ls "templates");
           do
