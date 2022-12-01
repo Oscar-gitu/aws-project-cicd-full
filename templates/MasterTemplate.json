@@ -284,12 +284,7 @@
         "CompatibleRuntimes": [
           "python3.9"
         ],
-        "Content": {
-          "S3Bucket": {
-            "Ref": "BucketArtifactName"
-          },
-          "S3Key": "deploys/project/dependencies.zip"
-        },
+        "Content": "../src/layers",
         "LayerName": {
           "Fn::Sub": "${Environment}-${ProjectName}-layer"
         }
