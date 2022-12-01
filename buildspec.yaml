@@ -24,6 +24,7 @@ phases:
       - cd src/layers/python
       - pip install --target . -r requirements.txt
       - cd ..
+      - cd ..
       - | 
         for t in $(ls "templates");
           do
