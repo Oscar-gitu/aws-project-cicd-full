@@ -15,7 +15,7 @@ phases:
   build:
     commands:
       - echo Entered the build phase...
-      - echo $AWS_DEFAULT_REGION and $AWS_ACCOUNT_ID
+      - echo $AWS_DEFAULT_REGION and $CODEBUILD_WEBHOOK_ACTOR_ACCOUNT_ID
       - aws cloudformation deploy --template-file ./templates/pipeline.yaml --stack-name dev-deploy-pipeline --parameter-overrides BucketArtifactName=${S3_BUCKET} --capabilities CAPABILITY_AUTO_EXPAND CAPABILITY_NAMED_IAM CAPABILITY_IAM --no-fail-on-empty-changeset
 
   post_build:
