@@ -753,6 +753,55 @@
         },
         "TimeoutInMinutes": 60
       }
+    },
+    "StackRDS": {
+      "Type": "AWS::CloudFormation::Stack",
+      "Properties": {
+        "TemplateURL": {
+          "Fn::Sub": "https://${Environment}-artifacts-${AWS::AccountId}.s3.${AWS::URLSuffix}/deploys/infrastructure/rds.cf.yaml"
+        },
+        "Parameters": {
+          "Environment": {
+            "Ref": "Environment"
+          },
+          "PublicSubnets": {
+            "Fn::GetAtt": [
+              "StackVPCMyData",
+              "Outputs.PublicSubnets"
+            ]
+          },
+          "Project": {
+            "Ref": "ProjectName"
+          },
+          "Name": {
+            "Fn::Join": [
+              "-",
+              [
+                {
+                  "Ref": "Environment"
+                },
+                {
+                  "Ref": "ProjectName"
+                },
+                "myData"
+              ]
+            ]
+          },
+          "SGID": {
+            "Fn::GetAtt": [
+              "StackVPCMyData",
+              "Outputs.SGID"
+            ]
+          },
+          "VPCData": {
+            "Fn::GetAtt": [
+              "StackAccessRulesMyData",
+              "Outputs.VPCID"
+            ]
+          }
+        },
+        "TimeoutInMinutes": 60
+      }
     }
   }
 }

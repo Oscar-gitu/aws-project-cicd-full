@@ -173,3 +173,6 @@ Outputs:
   SG:
     Description: A reference to the security group
     Value: !Ref SecurityGroup
+  SGID:
+    Description: Id Sg
+    Value: !GetAtt SecurityGroup.GroupId
