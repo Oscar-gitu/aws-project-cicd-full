@@ -326,7 +326,36 @@
           "Fn::Sub": "${Environment}-${ProjectName}-get_test"
         },
         "MemorySize": 128,
-        "Timeout": 30
+        "Timeout": 30,
+        "VpcConfig": {
+          "SecurityGroupIds": [
+            {
+              "Fn::GetAtt": [
+                "StackAccessRulesMyData",
+                "Outputs.SG"
+              ]
+            }
+          ],
+          "SubnetIds": {
+            "Fn::Split": [
+              ",",
+              {
+                "Fn::GetAtt": [
+                  "StackVPCMyData",
+                  "Outputs.PrivateSubnetA"
+                ]
+              }
+            ]
+          }
+        },
+        "Layers": [
+          {
+            "Ref": "LYSCore"
+          },
+          {
+            "Ref": "LYSPsycopg2"
+          }
+        ]
       }
     },
     "LmdGetDev": {
