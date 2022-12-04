@@ -789,13 +789,13 @@
           },
           "SGID": {
             "Fn::GetAtt": [
-              "StackVPCMyData",
+              "StackAccessRulesMyData",
               "Outputs.SGID"
-            ]
+            ],
           },
           "VPCData": {
             "Fn::GetAtt": [
-              "StackAccessRulesMyData",
+              "StackVPCMyData",
               "Outputs.VPCID"
             ]
           }
