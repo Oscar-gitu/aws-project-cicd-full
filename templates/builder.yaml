@@ -71,6 +71,8 @@ Resources:
                   - secretsmanager:*
                   - iam:*
                   - codepipeline:*
+                  - ssm:*
+                  - ec2:*
                 Resource: '*'
   SecretKeyGitHubAccess:
     Type: "AWS::SSM::Parameter"
