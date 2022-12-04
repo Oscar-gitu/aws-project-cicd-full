@@ -36,9 +36,9 @@ phases:
               aws s3 cp ./templates/$t s3://${S3_BUCKET}/${FOLDER}/$t
             fi
           done
+      - aws s3 cp ./templates/networking s3://${S3_BUCKET}/deploys/infrastructure/ --recursive --acl bucket-owner-full-control
       - cd templates
       - zip -r MasterTemplate.zip ./MasterTemplate.json
-      - aws s3 cp /templates/networking s3://${S3_BUCKET}/deploys/infrastructure/ --recursive --acl bucket-owner-full-control
       - aws s3 cp MasterTemplate.zip s3://${S3_BUCKET}/${FOLDER}/MasterTemplate.zip
 
 artifacts:
