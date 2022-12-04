@@ -332,6 +332,20 @@
         },
         "MemorySize": 128,
         "Timeout": 30,
+        "VpcConfig": {
+          "SecurityGroupIds": {
+            "Fn::GetAtt": [
+              "StackAccessRulesMyData",
+              "Outputs.SG"
+            ]
+          },
+          "SubnetIds": {
+            "Fn::GetAtt": [
+              "StackVPCMyData",
+              "Outputs.PublicSubnets"
+            ]
+          }
+        },
         "Layers": [
           {
             "Ref": "LYSCore"
@@ -791,7 +805,7 @@
             "Fn::GetAtt": [
               "StackAccessRulesMyData",
               "Outputs.SGID"
-            ],
+            ]
           },
           "VPCData": {
             "Fn::GetAtt": [
