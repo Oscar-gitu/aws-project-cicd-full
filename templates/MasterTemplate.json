@@ -342,12 +342,9 @@
             }
           ],
           "SubnetIds": [
-            {
-              "Fn::GetAtt": [
-                "StackVPCMyData",
-                "Outputs.PublicSubnets"
-              ]
-            }
+            "subnet-0fce24db1a28b826f",
+            "subnet-06cbb5dbc4bcb7d9e",
+            "subnet-010698c72834afbb4"
           ]
         },
         "Layers": [
