@@ -52,49 +52,49 @@ Resources:
   SSMVpcCidr:
     Type: 'AWS::SSM::Parameter'
     Properties:
-      Name: !Sub '/config/infra/${Project}/vpc-business/cidr'
+      Name: !Sub '/config/infra/${Project}/vpc-mydata/cidr'
       Tier: Standard
       Type: String
       Value: !Ref VpcCidr
   SSMCidrPrivateSubnetA:
     Type: 'AWS::SSM::Parameter'
     Properties:
-      Name: !Sub '/config/infra/${Project}/vpc-business/cidr-private-subnet-a'
+      Name: !Sub '/config/infra/${Project}/vpc-mydata/cidr-private-subnet-a'
       Tier: Standard
       Type: String
       Value: !Ref CidrPrivateSubnetA
   SSMCidrPrivateSubnetB:
     Type: 'AWS::SSM::Parameter'
     Properties:
-      Name: !Sub '/config/infra/${Project}/vpc-business/cidr-private-subnet-b'
+      Name: !Sub '/config/infra/${Project}/vpc-mydata/cidr-private-subnet-b'
       Tier: Standard
       Type: String
       Value: !Ref CidrPrivateSubnetB
   SSMCidrPrivateSubnetC:
     Type: 'AWS::SSM::Parameter'
     Properties:
-      Name: !Sub '/config/infra/${Project}/vpc-business/cidr-private-subnet-c'
+      Name: !Sub '/config/infra/${Project}/vpc-mydata/cidr-private-subnet-c'
       Tier: Standard
       Type: String
       Value: !Ref CidrPrivateSubnetC
   SSMCidrPublicSubnetA:
     Type: 'AWS::SSM::Parameter'
     Properties:
-      Name: !Sub '/config/infra/${Project}/vpc-business/cidr-public-subnet-a'
+      Name: !Sub '/config/infra/${Project}/vpc-mydata/cidr-public-subnet-a'
       Tier: Standard
       Type: String
       Value: !Ref CidrPublicSubnetA
   SSMCidrPublicSubnetB:
     Type: 'AWS::SSM::Parameter'
     Properties:
-      Name: !Sub '/config/infra/${Project}/vpc-business/cidr-public-subnet-b'
+      Name: !Sub '/config/infra/${Project}/vpc-mydata/cidr-public-subnet-b'
       Tier: Standard
       Type: String
       Value: !Ref CidrPublicSubnetB
   SSMCidrPublicSubnetC:
     Type: 'AWS::SSM::Parameter'
     Properties:
-      Name: !Sub '/config/infra/${Project}/vpc-business/cidr-public-subnet-c'
+      Name: !Sub '/config/infra/${Project}/vpc-mydata/cidr-public-subnet-c'
       Tier: Standard
       Type: String
       Value: !Ref CidrPublicSubnetC
@@ -103,49 +103,49 @@ Resources:
   SSMVpcCidr2:
     Type: 'AWS::SSM::Parameter'
     Properties:
-      Name: !Sub '/config/infra/${Project}/vpc-data/cidr'
+      Name: !Sub '/config/infra/${Project}/vpc-mydata2/cidr'
       Tier: Standard
       Type: String
       Value: !Ref VpcCidr2
   SSMCidrPrivateSubnetA2:
     Type: 'AWS::SSM::Parameter'
     Properties:
-      Name: !Sub '/config/infra/${Project}/vpc-data/cidr-private-subnet-a'
+      Name: !Sub '/config/infra/${Project}/vpc-mydata2/cidr-private-subnet-a'
       Tier: Standard
       Type: String
       Value: !Ref CidrPrivateSubnetA2
   SSMCidrPrivateSubnetB2:
     Type: 'AWS::SSM::Parameter'
     Properties:
-      Name: !Sub '/config/infra/${Project}/vpc-data/cidr-private-subnet-b'
+      Name: !Sub '/config/infra/${Project}/vpc-mydata2/cidr-private-subnet-b'
       Tier: Standard
       Type: String
       Value: !Ref CidrPrivateSubnetB2
   SSMCidrPrivateSubnetC2:
     Type: 'AWS::SSM::Parameter'
     Properties:
-      Name: !Sub '/config/infra/${Project}/vpc-data/cidr-private-subnet-c'
+      Name: !Sub '/config/infra/${Project}/vpc-mydata2/cidr-private-subnet-c'
       Tier: Standard
       Type: String
       Value: !Ref CidrPrivateSubnetC2
   SSMCidrPublicSubnetA2:
     Type: 'AWS::SSM::Parameter'
     Properties:
-      Name: !Sub '/config/infra/${Project}/vpc-data/cidr-public-subnet-a'
+      Name: !Sub '/config/infra/${Project}/vpc-mydata2/cidr-public-subnet-a'
       Tier: Standard
       Type: String
       Value: !Ref CidrPublicSubnetA2
   SSMCidrPublicSubnetB2:
     Type: 'AWS::SSM::Parameter'
     Properties:
-      Name: !Sub '/config/infra/${Project}/vpc-data/cidr-public-subnet-b'
+      Name: !Sub '/config/infra/${Project}/vpc-mydata2/cidr-public-subnet-b'
       Tier: Standard
       Type: String
       Value: !Ref CidrPublicSubnetB2
   SSMCidrPublicSubnetC2:
     Type: 'AWS::SSM::Parameter'
     Properties:
-      Name: !Sub '/config/infra/${Project}/vpc-data/cidr-public-subnet-c'
+      Name: !Sub '/config/infra/${Project}/vpc-mydata2/cidr-public-subnet-c'
       Tier: Standard
       Type: String
       Value: !Ref CidrPublicSubnetC2

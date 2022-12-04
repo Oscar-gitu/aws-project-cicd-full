@@ -586,7 +586,7 @@
       }
     },
     
-    "StackVPCBusiness": {
+    "StackVPCMyData": {
       "Type": "AWS::CloudFormation::Stack",
       "Properties": {
         "TemplateURL": {
@@ -608,25 +608,25 @@
             ]
           },
           "VpcCIDR": {
-            "Fn::Sub": "/config/infra/${ProjectName}/vpc-business/cidr"
+            "Fn::Sub": "/config/infra/${ProjectName}/vpc-mydata/cidr"
           },
           "PrivateSubnetACIDR": {
-            "Fn::Sub": "/config/infra/${ProjectName}/vpc-business/cidr-private-subnet-a"
+            "Fn::Sub": "/config/infra/${ProjectName}/vpc-mydata/cidr-private-subnet-a"
           },
           "PrivateSubnetBCIDR": {
-            "Fn::Sub": "/config/infra/${ProjectName}/vpc-business/cidr-private-subnet-b"
+            "Fn::Sub": "/config/infra/${ProjectName}/vpc-mydata/cidr-private-subnet-b"
           },
           "PrivateSubnetCCIDR": {
-            "Fn::Sub": "/config/infra/${ProjectName}/vpc-business/cidr-private-subnet-c"
+            "Fn::Sub": "/config/infra/${ProjectName}/vpc-mydata/cidr-private-subnet-c"
           },
           "PublicSubnetACIDR": {
-            "Fn::Sub": "/config/infra/${ProjectName}/vpc-business/cidr-public-subnet-a"
+            "Fn::Sub": "/config/infra/${ProjectName}/vpc-mydata/cidr-public-subnet-a"
           },
           "PublicSubnetBCIDR": {
-            "Fn::Sub": "/config/infra/${ProjectName}/vpc-business/cidr-public-subnet-b"
+            "Fn::Sub": "/config/infra/${ProjectName}/vpc-mydata/cidr-public-subnet-b"
           },
           "PublicSubnetCCIDR": {
-            "Fn::Sub": "/config/infra/${ProjectName}/vpc-business/cidr-public-subnet-c"
+            "Fn::Sub": "/config/infra/${ProjectName}/vpc-mydata/cidr-public-subnet-c"
           }
         },
         "TimeoutInMinutes": 60
@@ -655,28 +655,28 @@
           },
           "VPCID": {
             "Fn::GetAtt": [
-              "StackVPCBusiness",
+              "StackVPCMyData",
               "Outputs",
               "VPCID"
             ]
           },
           "PublicSubnetA": {
             "Fn::GetAtt": [
-              "StackVPCBusiness",
+              "StackVPCMyData",
               "Outputs",
               "PublicSubnetA"
             ]
           },
           "PublicSubnetB": {
             "Fn::GetAtt": [
-              "StackVPCBusiness",
+              "StackVPCMyData",
               "Outputs",
               "PublicSubnetB"
             ]
           },
           "PublicSubnetC": {
             "Fn::GetAtt": [
-              "StackVPCBusiness",
+              "StackVPCMyData",
               "Outputs",
               "PublicSubnetC"
             ]
@@ -685,7 +685,7 @@
         "TimeoutInMinutes": 60
       }
     },
-    "StackAccessRulesBusiness": {
+    "StackAccessRulesMyData": {
       "Type": "AWS::CloudFormation::Stack",
       "Properties": {
         "TemplateURL": {
@@ -708,49 +708,49 @@
           },
           "VPCID": {
             "Fn::GetAtt": [
-              "StackVPCBusiness",
+              "StackVPCMyData",
               "Outputs",
               "VPCID"
             ]
           },
           "PrivateSubnetA": {
             "Fn::GetAtt": [
-              "StackVPCBusiness",
+              "StackVPCMyData",
               "Outputs",
               "PrivateSubnetA"
             ]
           },
           "PrivateSubnetB": {
             "Fn::GetAtt": [
-              "StackVPCBusiness",
+              "StackVPCMyData",
               "Outputs",
               "PrivateSubnetB"
             ]
           },
           "PrivateSubnetC": {
             "Fn::GetAtt": [
-              "StackVPCBusiness",
+              "StackVPCMyData",
               "Outputs",
               "PrivateSubnetC"
             ]
           },
           "PublicSubnetA": {
             "Fn::GetAtt": [
-              "StackVPCBusiness",
+              "StackVPCMyData",
               "Outputs",
               "PublicSubnetA"
             ]
           },
           "PublicSubnetB": {
             "Fn::GetAtt": [
-              "StackVPCBusiness",
+              "StackVPCMyData",
               "Outputs",
               "PublicSubnetB"
             ]
           },
           "PublicSubnetC": {
             "Fn::GetAtt": [
-              "StackVPCBusiness",
+              "StackVPCMyData",
               "Outputs",
               "PublicSubnetC"
             ]
