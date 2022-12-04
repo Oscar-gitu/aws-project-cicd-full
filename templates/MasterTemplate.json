@@ -486,7 +486,7 @@
         }
       }
     },
-    "APIResourceLmdGetDev": {
+    "APIResourceLmdPrivate": {
       "Type": "AWS::ApiGateway::Resource",
       "Properties": {
         "RestApiId": {
@@ -498,20 +498,20 @@
             "RootResourceId"
           ]
         },
-        "PathPart": "getdev"
+        "PathPart": "Lmdprivate"
       },
       "DependsOn": [
         "APIG"
       ]
     },
-    "APIMethodLmdGetDev": {
+    "APIMethodLmdPrivate": {
       "Type": "AWS::ApiGateway::Method",
       "Properties": {
         "RestApiId": {
           "Ref": "APIG"
         },
         "ResourceId": {
-          "Ref": "APIResourceLmdGetDev"
+          "Ref": "APIResourceLmdPrivate"
         },
         "HttpMethod": "GET",
         "AuthorizationType": "NONE",
@@ -534,7 +534,7 @@
               {
                 "LambdaFuncNameArn": {
                   "Fn::GetAtt": [
-                    "LmdGetDev",
+                    "LmdPrivate",
                     "Arn"
                   ]
                 }
@@ -544,7 +544,68 @@
         }
       },
       "DependsOn": [
-        "APIResourceLmdGetDev"
+        "APIResourceLmdPrivate"
+      ]
+    },
+    "APIResourceLmdPublic": {
+      "Type": "AWS::ApiGateway::Resource",
+      "Properties": {
+        "RestApiId": {
+          "Ref": "APIG"
+        },
+        "ParentId": {
+          "Fn::GetAtt": [
+            "APIG",
+            "RootResourceId"
+          ]
+        },
+        "PathPart": "Lmdpublic"
+      },
+      "DependsOn": [
+        "APIG"
+      ]
+    },
+    "APIMethodLmdPublic": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "RestApiId": {
+          "Ref": "APIG"
+        },
+        "ResourceId": {
+          "Ref": "APIResourceLmdPublic"
+        },
+        "HttpMethod": "GET",
+        "AuthorizationType": "NONE",
+        "MethodResponses": [
+          {
+            "StatusCode": 200
+          }
+        ],
+        "Integration": {
+          "Type": "AWS",
+          "IntegrationResponses": [
+            {
+              "StatusCode": 200
+            }
+          ],
+          "IntegrationHttpMethod": "GET",
+          "Uri": {
+            "Fn::Sub": [
+              "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${LambdaFuncNameArn}/invocations",
+              {
+                "LambdaFuncNameArn": {
+                  "Fn::GetAtt": [
+                    "LmdPublic",
+                    "Arn"
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      },
+      "DependsOn": [
+        "APIResourceLmdPublic"
       ]
     },
     "DAPIGprojectback": {
