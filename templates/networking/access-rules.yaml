@@ -52,11 +52,11 @@ Resources:
       - Key: Name
         Value: !Sub '${Name} Security Group'
       SecurityGroupIngress:
-        - FromPort: 5432
-          ToPort: 5432
-          IpProtocol: "tcp"
-          Description: "Allow connections to a PostgreSQL DB instance"
-          CidrIp: ""
+      - FromPort: 5432
+        ToPort: 5432
+        IpProtocol: "tcp"
+        Description: "Allow connections to a PostgreSQL DB instance"
+        CidrIp: ""
 
   SGEntrySelf:
     Type: AWS::EC2::SecurityGroupIngress
