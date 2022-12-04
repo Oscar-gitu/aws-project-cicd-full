@@ -333,18 +333,22 @@
         "MemorySize": 128,
         "Timeout": 30,
         "VpcConfig": {
-          "SecurityGroupIds": {
-            "Fn::GetAtt": [
-              "StackAccessRulesMyData",
-              "Outputs.SG"
-            ]
-          },
-          "SubnetIds": {
-            "Fn::GetAtt": [
-              "StackVPCMyData",
-              "Outputs.PublicSubnets"
-            ]
-          }
+          "SecurityGroupIds": [
+            {
+              "Fn::GetAtt": [
+                "StackAccessRulesMyData",
+                "Outputs.SG"
+              ]
+            }
+          ],
+          "SubnetIds": [
+            {
+              "Fn::GetAtt": [
+                "StackVPCMyData",
+                "Outputs.PublicSubnets"
+              ]
+            }
+          ]
         },
         "Layers": [
           {
