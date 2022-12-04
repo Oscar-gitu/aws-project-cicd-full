@@ -656,29 +656,25 @@
           "VPCID": {
             "Fn::GetAtt": [
               "StackVPCMyData",
-              "Outputs",
-              "VPCID"
+              "Outputs.VPCID"
             ]
           },
           "PublicSubnetA": {
             "Fn::GetAtt": [
               "StackVPCMyData",
-              "Outputs",
-              "PublicSubnetA"
+              "Outputs.PublicSubnetA"
             ]
           },
           "PublicSubnetB": {
             "Fn::GetAtt": [
               "StackVPCMyData",
-              "Outputs",
-              "PublicSubnetB"
+              "Outputs.PublicSubnetB"
             ]
           },
           "PublicSubnetC": {
             "Fn::GetAtt": [
               "StackVPCMyData",
-              "Outputs",
-              "PublicSubnetC"
+              "Outputs.PublicSubnetC"
             ]
           }
         },
@@ -709,78 +705,67 @@
           "VPCID": {
             "Fn::GetAtt": [
               "StackVPCMyData",
-              "Outputs",
-              "VPCID"
+              "Outputs.VPCID"
             ]
           },
           "PrivateSubnetA": {
             "Fn::GetAtt": [
               "StackVPCMyData",
-              "Outputs",
-              "PrivateSubnetA"
+              "Outputs.PrivateSubnetA"
             ]
           },
           "PrivateSubnetB": {
             "Fn::GetAtt": [
               "StackVPCMyData",
-              "Outputs",
-              "PrivateSubnetB"
+              "Outputs.PrivateSubnetB"
             ]
           },
           "PrivateSubnetC": {
             "Fn::GetAtt": [
               "StackVPCMyData",
-              "Outputs",
-              "PrivateSubnetC"
+              "Outputs.PrivateSubnetC"
             ]
           },
           "PublicSubnetA": {
             "Fn::GetAtt": [
               "StackVPCMyData",
-              "Outputs",
-              "PublicSubnetA"
+              "Outputs.PublicSubnetA"
             ]
           },
           "PublicSubnetB": {
             "Fn::GetAtt": [
               "StackVPCMyData",
-              "Outputs",
-              "PublicSubnetB"
+              "Outputs.PublicSubnetB"
             ]
           },
           "PublicSubnetC": {
             "Fn::GetAtt": [
               "StackVPCMyData",
-              "Outputs",
-              "PublicSubnetC"
+              "Outputs.PublicSubnetC"
             ]
           },
           "InternetGateway": {
             "Fn::GetAtt": [
               "StackNatIG",
-              "Outputs",
-              "InternetGateway"
+              "Outputs.InternetGateway"
             ]
           },
           "NatGatewayA": {
             "Fn::GetAtt": [
               "StackNatIG",
-              "Outputs",
-              "NatGatewayA"
+              "Outputs.NatGatewayA"
             ]
           },
           "NatGatewayB": {
             "Fn::GetAtt": [
               "StackNatIG",
-              "Outputs",
-              "NatGatewayB"
+              "Outputs.NatGatewayB"
             ]
           },
           "NatGatewayC": {
             "Fn::GetAtt": [
               "StackNatIG",
-              "Outputs",
-              "NatGatewayC"
+              "Outputs.NatGatewayC"
             ]
           }
         },
