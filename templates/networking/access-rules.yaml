@@ -56,7 +56,7 @@ Resources:
         ToPort: 5432
         IpProtocol: "tcp"
         Description: "Allow connections to a PostgreSQL DB instance"
-        CidrIp: ""
+        CidrIp: 0.0.0.0/0
 
   SGEntrySelf:
     Type: AWS::EC2::SecurityGroupIngress
