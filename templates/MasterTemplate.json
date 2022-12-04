@@ -590,7 +590,7 @@
       "Type": "AWS::CloudFormation::Stack",
       "Properties": {
         "TemplateURL": {
-          "Fn::Sub": "https://{{resolve:ssm:/config/${Environment}/infra/bucket/artifacts}}.s3.${AWS::URLSuffix}/deploys/infrastructure/vpc.yaml"
+          "Fn::Sub": "https://${Environment}-artifacts-${AWS::AccountId}.s3.${AWS::URLSuffix}/deploys/infrastructure/vpc.yaml"
         },
         "Parameters": {
           "Name": {
@@ -636,7 +636,7 @@
       "Type": "AWS::CloudFormation::Stack",
       "Properties": {
         "TemplateURL": {
-          "Fn::Sub": "https://{{resolve:ssm:/config/${Environment}/infra/bucket/artifacts}}.s3.${AWS::URLSuffix}/deploys/infrastructure/nat-ig-gateways.yaml"
+          "Fn::Sub": "https://${Environment}-artifacts-${AWS::AccountId}.s3.${AWS::URLSuffix}/deploys/infrastructure/nat-ig-gateways.yaml"
         },
         "Parameters": {
           "Name": {
@@ -685,7 +685,7 @@
       "Type": "AWS::CloudFormation::Stack",
       "Properties": {
         "TemplateURL": {
-          "Fn::Sub": "https://{{resolve:ssm:/config/${Environment}/infra/bucket/artifacts}}.s3.${AWS::URLSuffix}/deploys/infrastructure/access-rules.yaml"
+          "Fn::Sub": "https://${Environment}-artifacts-${AWS::AccountId}.s3.${AWS::URLSuffix}/deploys/infrastructure/access-rules.yaml"
         },
         "Parameters": {
           "Name": {
