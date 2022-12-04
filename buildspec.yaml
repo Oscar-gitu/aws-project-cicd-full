@@ -16,7 +16,7 @@ phases:
     commands:
       - echo Entered the build phase...
       - echo $AWS_DEFAULT_REGION and ${S3_BUCKET}
-      - aws cloudformation deploy --template-file ./templates/networking/vpcParameters.yaml --stack-name dev-vpc-cidr-mydata --parameter-overrides VpcCidr=10.192.0.0/16 CidrPrivateSubnetA=10.192.10.0/24 CidrPrivateSubnetB=10.192.20.0/24 CidrPrivateSubnetC=10.192.30.0/24 CidrPublicSubnetA=10.192.40.0/24 CidrPublicSubnetB=10.192.50.0/24 CidrPublicSubnetC=10.192.60.0/24 VpcCidr2=11.192.0.0/16 CidrPrivateSubnetA2=11.192.10.0/24 CidrPrivateSubnetB2=11.192.20.0/24 CidrPrivateSubnetC2=11.192.30.0/24 CidrPublicSubnetA2=11.192.40.0/24 CidrPublicSubnetB2=11.192.50.0/24 CidrPublicSubnetC2=11.192.60.0/24 --capabilities CAPABILITY_AUTO_EXPAND CAPABILITY_NAMED_IAM CAPABILITY_IAM
+      - aws cloudformation deploy --template-file ./templates/networking/vpcParameters.yaml --stack-name dev-vpc-cidr-mydata --parameter-overrides VpcCidr=10.192.0.0/16 CidrPrivateSubnetA=10.192.10.0/24 CidrPrivateSubnetB=10.192.20.0/24 CidrPrivateSubnetC=10.192.30.0/24 CidrPublicSubnetA=10.192.40.0/24 CidrPublicSubnetB=10.192.50.0/24 CidrPublicSubnetC=10.192.60.0/24 VpcCidr2=11.192.0.0/16 CidrPrivateSubnetA2=11.192.10.0/24 CidrPrivateSubnetB2=11.192.20.0/24 CidrPrivateSubnetC2=11.192.30.0/24 CidrPublicSubnetA2=11.192.40.0/24 CidrPublicSubnetB2=11.192.50.0/24 CidrPublicSubnetC2=11.192.60.0/24 --capabilities CAPABILITY_AUTO_EXPAND CAPABILITY_NAMED_IAM CAPABILITY_IAM --no-fail-on-empty-changeset
       - aws cloudformation deploy --template-file ./templates/pipeline.yaml --stack-name dev-deploy-pipeline --parameter-overrides BucketArtifactName=${S3_BUCKET} --capabilities CAPABILITY_AUTO_EXPAND CAPABILITY_NAMED_IAM CAPABILITY_IAM --no-fail-on-empty-changeset
 
   post_build:
