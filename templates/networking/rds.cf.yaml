@@ -71,6 +71,7 @@ Resources:
   DBInstance:
     Type: 'AWS::RDS::DBInstance'
     Properties:
+      PubliclyAccessible: true
       StorageEncrypted: true
       DBInstanceIdentifier: !Join
         - '-'
