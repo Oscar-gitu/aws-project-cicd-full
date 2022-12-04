@@ -43,23 +43,6 @@ Resources:
         - Key: Name
           Value: !Sub ${Name}-eip-a
 
-  ElasticIPB:
-    Type: AWS::EC2::EIP
-    DependsOn: InternetGatewayAttachment
-    Properties:
-      Domain: vpc
-      Tags:
-        - Key: Name
-          Value: !Sub ${Name}-eip-b
-
-  ElasticIPC:
-    Type: AWS::EC2::EIP
-    DependsOn: InternetGatewayAttachment
-    Properties:
-      Domain: vpc
-      Tags:
-        - Key: Name
-          Value: !Sub ${Name}-eip-c
 
   NatGatewayA:
     Type: AWS::EC2::NatGateway
@@ -70,24 +53,6 @@ Resources:
         - Key: Name
           Value: !Sub ${Name}-nat-a
 
-  NatGatewayB:
-    Type: AWS::EC2::NatGateway
-    Properties:
-      AllocationId: !GetAtt ElasticIPB.AllocationId
-      SubnetId: !Ref PublicSubnetB
-      Tags:
-        - Key: Name
-          Value: !Sub ${Name}-nat-b
-
-  NatGatewayC:
-    Type: AWS::EC2::NatGateway
-    Properties:
-      AllocationId: !GetAtt ElasticIPC.AllocationId
-      SubnetId: !Ref PublicSubnetC
-      Tags:
-        - Key: Name
-          Value: !Sub ${Name}-nat-c
-
 Outputs:
   InternetGateway:
     Value: !Ref InternetGateway
@@ -95,15 +60,7 @@ Outputs:
   NatGatewayA:
     Value: !Ref NatGatewayA
 
-  NatGatewayB:
-    Value: !Ref NatGatewayB
-
-  NatGatewayC:
-    Value: !Ref NatGatewayC
-
   NatGateway:
     Value: !Join
       - ','
       - - NatGatewayA
-        - NatGatewayB
-        - NatGatewayC

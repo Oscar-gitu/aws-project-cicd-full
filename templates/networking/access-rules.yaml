@@ -169,22 +169,6 @@ Resources:
       DestinationCidrBlock: 0.0.0.0/0
       NatGatewayId: !Ref NatGatewayA
 
-  NatGatewayBAssociation:
-    Type: AWS::EC2::Route
-    Condition: notCreateNatIng
-    Properties:
-      RouteTableId: !Ref PrivateRouteTableB
-      DestinationCidrBlock: 0.0.0.0/0
-      NatGatewayId: !Ref NatGatewayB
-
-  NatGatewayCAssociation:
-    Type: AWS::EC2::Route
-    Condition: notCreateNatIng
-    Properties:
-      RouteTableId: !Ref PrivateRouteTableC
-      DestinationCidrBlock: 0.0.0.0/0
-      NatGatewayId: !Ref NatGatewayC
-
   SSMSecurityGroup:
     Type: AWS::SSM::Parameter
     Properties:

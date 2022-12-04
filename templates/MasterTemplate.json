@@ -776,18 +776,6 @@
               "StackNatIG",
               "Outputs.NatGatewayA"
             ]
-          },
-          "NatGatewayB": {
-            "Fn::GetAtt": [
-              "StackNatIG",
-              "Outputs.NatGatewayB"
-            ]
-          },
-          "NatGatewayC": {
-            "Fn::GetAtt": [
-              "StackNatIG",
-              "Outputs.NatGatewayC"
-            ]
           }
         },
         "TimeoutInMinutes": 60
