@@ -68,7 +68,6 @@ Resources:
       FromPort: 5432
       ToPort: 5432
       Description: postgresql
-      GroupName: "allow-postgresql-traffic"
 
   ########
   PrivateRouteTableA:
