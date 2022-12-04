@@ -163,7 +163,6 @@ Resources:
 #  ## NATGATEWAY PRIVATE ASSOCIATIONS
   NatGatewayAAssociation:
     Type: AWS::EC2::Route
-    Condition: notCreateNatIng
     Properties:
       RouteTableId: !Ref PrivateRouteTableA
       DestinationCidrBlock: 0.0.0.0/0
