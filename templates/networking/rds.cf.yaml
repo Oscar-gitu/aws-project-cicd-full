@@ -106,7 +106,7 @@ Resources:
     Type: 'AWS::SSM::Parameter'
     Properties:
       DataType: text
-      Name: !Sub "/config/infra/${Environment}/db/credentials"
+      Name: !Sub "/config/infra/${Environment}/${Project}/db/credentials"
       Tier: Standard
       Type: String
       Value: !Sub
