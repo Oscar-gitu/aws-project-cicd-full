@@ -51,6 +51,12 @@ Resources:
       Tags:
       - Key: Name
         Value: !Sub '${Name} Security Group'
+      SecurityGroupIngress:
+        - FromPort: 5432
+          ToPort: 5432
+          IpProtocol: "tcp"
+          Description: "Allow connections to a PostgreSQL DB instance"
+          CidrIp: ""
 
   SGEntrySelf:
     Type: AWS::EC2::SecurityGroupIngress
@@ -59,15 +65,6 @@ Resources:
       Description: access from self
       SourceSecurityGroupId: !GetAtt SecurityGroup.GroupId
       IpProtocol: -1
-
-  SGPostgresql:
-    Type: AWS::EC2::SecurityGroupIngress
-    Properties:
-      GroupId: !Ref SecurityGroup
-      IpProtocol: "tcp"
-      FromPort: 5432
-      ToPort: 5432
-      Description: postgresql
 
   ########
   PrivateRouteTableA:
