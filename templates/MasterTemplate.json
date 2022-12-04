@@ -584,6 +584,208 @@
           ]
         }
       }
+    },
+    
+    "StackVPCBusiness": {
+      "Type": "AWS::CloudFormation::Stack",
+      "Properties": {
+        "TemplateURL": {
+          "Fn::Sub": "https://{{resolve:ssm:/config/${Environment}/infra/bucket/artifacts}}.s3.${AWS::URLSuffix}/deploys/project/vpc.yaml"
+        },
+        "Parameters": {
+          "Name": {
+            "Fn::Join": [
+              "-",
+              [
+                {
+                  "Ref": "Environment"
+                },
+                {
+                  "Ref": "ProjectName"
+                },
+                "mydata"
+              ]
+            ]
+          },
+          "VpcCIDR": {
+            "Fn::Sub": "/config/infra/${ProjectName}/vpc-business/cidr"
+          },
+          "PrivateSubnetACIDR": {
+            "Fn::Sub": "/config/infra/${ProjectName}/vpc-business/cidr-private-subnet-a"
+          },
+          "PrivateSubnetBCIDR": {
+            "Fn::Sub": "/config/infra/${ProjectName}/vpc-business/cidr-private-subnet-b"
+          },
+          "PrivateSubnetCCIDR": {
+            "Fn::Sub": "/config/infra/${ProjectName}/vpc-business/cidr-private-subnet-c"
+          },
+          "PublicSubnetACIDR": {
+            "Fn::Sub": "/config/infra/${ProjectName}/vpc-business/cidr-public-subnet-a"
+          },
+          "PublicSubnetBCIDR": {
+            "Fn::Sub": "/config/infra/${ProjectName}/vpc-business/cidr-public-subnet-b"
+          },
+          "PublicSubnetCCIDR": {
+            "Fn::Sub": "/config/infra/${ProjectName}/vpc-business/cidr-public-subnet-c"
+          }
+        },
+        "TimeoutInMinutes": 60
+      }
+    },
+    "StackNatIG": {
+      "Type": "AWS::CloudFormation::Stack",
+      "Properties": {
+        "TemplateURL": {
+          "Fn::Sub": "https://{{resolve:ssm:/config/${Environment}/infra/bucket/artifacts}}.s3.${AWS::URLSuffix}/deploys/project/nat-ig-gateways.yaml"
+        },
+        "Parameters": {
+          "Name": {
+            "Fn::Join": [
+              "-",
+              [
+                {
+                  "Ref": "Environment"
+                },
+                {
+                  "Ref": "ProjectName"
+                },
+                "mydata"
+              ]
+            ]
+          },
+          "VPCID": {
+            "Fn::GetAtt": [
+              "StackVPCBusiness",
+              "Outputs",
+              "VPCID"
+            ]
+          },
+          "PublicSubnetA": {
+            "Fn::GetAtt": [
+              "StackVPCBusiness",
+              "Outputs",
+              "PublicSubnetA"
+            ]
+          },
+          "PublicSubnetB": {
+            "Fn::GetAtt": [
+              "StackVPCBusiness",
+              "Outputs",
+              "PublicSubnetB"
+            ]
+          },
+          "PublicSubnetC": {
+            "Fn::GetAtt": [
+              "StackVPCBusiness",
+              "Outputs",
+              "PublicSubnetC"
+            ]
+          }
+        },
+        "TimeoutInMinutes": 60
+      }
+    },
+    "StackAccessRulesBusiness": {
+      "Type": "AWS::CloudFormation::Stack",
+      "Properties": {
+        "TemplateURL": {
+          "Fn::Sub": "https://{{resolve:ssm:/config/${Environment}/infra/bucket/artifacts}}.s3.${AWS::URLSuffix}/deploys/project/access-rules.yaml"
+        },
+        "Parameters": {
+          "Name": {
+            "Fn::Join": [
+              "-",
+              [
+                {
+                  "Ref": "Environment"
+                },
+                {
+                  "Ref": "ProjectName"
+                },
+                "mydata"
+              ]
+            ]
+          },
+          "VPCID": {
+            "Fn::GetAtt": [
+              "StackVPCBusiness",
+              "Outputs",
+              "VPCID"
+            ]
+          },
+          "PrivateSubnetA": {
+            "Fn::GetAtt": [
+              "StackVPCBusiness",
+              "Outputs",
+              "PrivateSubnetA"
+            ]
+          },
+          "PrivateSubnetB": {
+            "Fn::GetAtt": [
+              "StackVPCBusiness",
+              "Outputs",
+              "PrivateSubnetB"
+            ]
+          },
+          "PrivateSubnetC": {
+            "Fn::GetAtt": [
+              "StackVPCBusiness",
+              "Outputs",
+              "PrivateSubnetC"
+            ]
+          },
+          "PublicSubnetA": {
+            "Fn::GetAtt": [
+              "StackVPCBusiness",
+              "Outputs",
+              "PublicSubnetA"
+            ]
+          },
+          "PublicSubnetB": {
+            "Fn::GetAtt": [
+              "StackVPCBusiness",
+              "Outputs",
+              "PublicSubnetB"
+            ]
+          },
+          "PublicSubnetC": {
+            "Fn::GetAtt": [
+              "StackVPCBusiness",
+              "Outputs",
+              "PublicSubnetC"
+            ]
+          },
+          "InternetGateway": {
+            "Fn::GetAtt": [
+              "StackNatIG",
+              "Outputs",
+              "InternetGateway"
+            ]
+          },
+          "NatGatewayA": {
+            "Fn::GetAtt": [
+              "StackNatIG",
+              "Outputs",
+              "NatGatewayA"
+            ]
+          },
+          "NatGatewayB": {
+            "Fn::GetAtt": [
+              "StackNatIG",
+              "Outputs",
+              "NatGatewayB"
+            ]
+          },
+          "NatGatewayC": {
+            "Fn::GetAtt": [
+              "StackNatIG",
+              "Outputs",
+              "NatGatewayC"
+            ]
+          }
+        },
+        "TimeoutInMinutes": 60
+      }
     }
   }
 }
