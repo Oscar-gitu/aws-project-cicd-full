@@ -3,19 +3,15 @@ Parameters:
   Name:
     Type: String
     Description: An environment name that will be prefixed to resource names
-
   VPCID:
     Type: AWS::EC2::VPC::Id
     Description: Choose which VPC the security groups should be deployed to
-
   PublicSubnetA:
     Type: String
     Description: Public SubnetId in AZ A
-
   PublicSubnetB:
     Type: String
     Description: Public SubnetId in AZ B
-
   PublicSubnetC:
     Type: String
     Description: Public SubnetId in AZ C
@@ -43,7 +39,6 @@ Resources:
         - Key: Name
           Value: !Sub ${Name}-eip-a
 
-
   NatGatewayA:
     Type: AWS::EC2::NatGateway
     Properties:
@@ -56,10 +51,8 @@ Resources:
 Outputs:
   InternetGateway:
     Value: !Ref InternetGateway
-
   NatGatewayA:
     Value: !Ref NatGatewayA
-
   NatGateway:
     Value: !Join
       - ','
