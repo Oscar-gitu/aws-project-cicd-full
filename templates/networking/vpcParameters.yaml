@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: 2010-09-09
-Description: JSON string
+Description: Ssm Parameters
 Parameters:
   VpcCidr:
     Type: String
