@@ -902,10 +902,10 @@
           "Environment": {
             "Ref": "Environment"
           },
-          "PublicSubnets": {
+          "PrivateSubnets": {
             "Fn::GetAtt": [
               "StackVPCMyData",
-              "Outputs.PublicSubnets"
+              "Outputs.PrivateSubnets"
             ]
           },
           "Project": {

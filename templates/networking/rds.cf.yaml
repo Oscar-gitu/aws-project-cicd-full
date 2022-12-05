@@ -14,7 +14,7 @@ Parameters:
     Type: String
   Project:
     Type: String
-  PublicSubnets:
+  PrivateSubnets:
     Description: Specify the Private subnets DB
     Type: String
   SGID:
@@ -67,7 +67,7 @@ Resources:
           - subnetgroup
       SubnetIds: !Split
         - ','
-        - !Ref PublicSubnets
+        - !Ref PrivateSubnets
   DBInstance:
     Type: 'AWS::RDS::DBInstance'
     Properties:
