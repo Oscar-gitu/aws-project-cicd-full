@@ -4,8 +4,6 @@ import psycopg2
 
 
 def lambda_handler(event, context):
-    r = requests.get('https://httpbin.org/basic-auth/user/pass', auth=('user', 'pass'))
-    print(r.status_code)
 
     try:
         connection = psycopg2.connect(
